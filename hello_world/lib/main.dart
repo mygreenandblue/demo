@@ -170,28 +170,95 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(App());
-class App extends StatelessWidget{
-  
+void main() {
+  runApp(
+    const MaterialApp(
+      title: 'My app', // used by the OS task switcher
+      home: SafeArea(
+        child: MyScaffold(),
+      ),
+    ),
+  );
+}
+class MyAppBar extends StatelessWidget {
+  const MyAppBar({required this.title});
+  final Widget title;
+
   @override
-  Widget build(BuildContext context){
-    return  Container(
-      height: 100.0,
-      padding: const EdgeInsets.symmetric(vertical: 60.0),
-      decoration:  BoxDecoration (color: Colors.white10),
+  Widget build(BuildContext context) {
+    return Container(
+      height: 56.0, // in logical pixels
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      decoration: BoxDecoration(color: Colors.white),
       child: Row(
-        children: <Widget>[
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
           Icon(
             Icons.cloud, 
             color: Colors.blue.shade900,
             ),
-          Text("Chào buổi chiều, Cong"),
+          Expanded(
+            child: Text(
+              "Chào buổi chiều, Cong",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                height: 2,
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: null,
+             icon: Icon(
+               Icons.favorite, 
+               color: Colors.red,
+              ),
+             focusColor: Colors.black,
+          ),
+          IconButton(
+            onPressed: null, 
+            icon: Icon(Icons.notifications),
+            color: Colors.black,
+          ),
         ],
-      ) 
-      );
-  } 
+      ),
+    );
+  }
 }
 
+class MyScaffold extends StatelessWidget {
+  const MyScaffold({Key? key}) : super(key: key);
 
-
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Column(
+        children: [
+          MyAppBar(
+            title: Text(
+              'Example title',
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12,),
+            child: TextField(
+              decoration: InputDecoration( 
+                prefixIcon: Icon(Icons.search, color: Colors.grey,),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(20), 
+                  ),
+                hintText: 'Enter a search term',
+              ),
+            ),
+          ),
+          Row(
+            
+          ),
+        ],  
+      ),
+    );
+  }
+}
 
